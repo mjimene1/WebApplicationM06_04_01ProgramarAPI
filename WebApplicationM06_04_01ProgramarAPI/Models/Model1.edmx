@@ -1,0 +1,821 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="abpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cicles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sigles" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="descripcio" Type="varchar" MaxLength="45" />
+          <Property Name="actiu" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="competencies_detall">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codi" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="competencies_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="competetencies">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codi" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="descripcio" Type="varchar" MaxLength="45" />
+          <Property Name="moduls_id" Type="int" Nullable="false" />
+          <Property Name="actiu" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cursos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sigles" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="45" />
+          <Property Name="cicles_id" Type="int" Nullable="false" />
+          <Property Name="actiu" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="moduls">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codi" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="hores" Type="int" Nullable="false" />
+          <Property Name="cicles_id" Type="int" Nullable="false" />
+          <Property Name="actiu" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="moduls_has_cursos">
+          <Key>
+            <PropertyRef Name="cursos_id" />
+            <PropertyRef Name="moduls_id" />
+            <PropertyRef Name="curs_academic_id" />
+          </Key>
+          <Property Name="cursos_id" Type="int" Nullable="false" />
+          <Property Name="moduls_id" Type="int" Nullable="false" />
+          <Property Name="curs_academic_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="moduls_has_professors">
+          <Key>
+            <PropertyRef Name="moduls_id" />
+            <PropertyRef Name="usuaris_id" />
+            <PropertyRef Name="curs_academic_id" />
+          </Key>
+          <Property Name="moduls_id" Type="int" Nullable="false" />
+          <Property Name="usuaris_id" Type="int" Nullable="false" />
+          <Property Name="curs_academic_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rols">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="actiu" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rubriques">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcio" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="actiu" Type="bit" Nullable="false" />
+          <Property Name="nivell" Type="int" Nullable="false" />
+          <Property Name="competetencies_detall_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuaris">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="correu" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="cognoms" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="contrasenya" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="rols_id" Type="int" Nullable="false" />
+          <Property Name="actiu" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuaris_has_competencies_detall">
+          <Key>
+            <PropertyRef Name="usauris_id" />
+            <PropertyRef Name="competencies_detall_id" />
+            <PropertyRef Name="curs_academic_id" />
+          </Key>
+          <Property Name="usauris_id" Type="int" Nullable="false" />
+          <Property Name="competencies_detall_id" Type="int" Nullable="false" />
+          <Property Name="curs_academic_id" Type="int" Nullable="false" />
+          <Property Name="nivell" Type="int" />
+        </EntityType>
+        <Association Name="FK_competencies_detall_competetencies">
+          <End Role="competetencies" Type="Self.competetencies" Multiplicity="1" />
+          <End Role="competencies_detall" Type="Self.competencies_detall" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="competetencies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="competencies_detall">
+              <PropertyRef Name="competencies_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_competetencies_moduls1">
+          <End Role="moduls" Type="Self.moduls" Multiplicity="1" />
+          <End Role="competetencies" Type="Self.competetencies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="moduls">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="competetencies">
+              <PropertyRef Name="moduls_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cursos_cicles1">
+          <End Role="cicles" Type="Self.cicles" Multiplicity="1" />
+          <End Role="cursos" Type="Self.cursos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cicles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cursos">
+              <PropertyRef Name="cicles_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_moduls_cicles">
+          <End Role="cicles" Type="Self.cicles" Multiplicity="1" />
+          <End Role="moduls" Type="Self.moduls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cicles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="moduls">
+              <PropertyRef Name="cicles_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_moduls_has_cursos_cursos">
+          <End Role="cursos" Type="Self.cursos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="moduls_has_cursos" Type="Self.moduls_has_cursos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cursos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="moduls_has_cursos">
+              <PropertyRef Name="cursos_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_moduls_has_cursos_moduls">
+          <End Role="moduls" Type="Self.moduls" Multiplicity="1" />
+          <End Role="moduls_has_cursos" Type="Self.moduls_has_cursos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="moduls">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="moduls_has_cursos">
+              <PropertyRef Name="moduls_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_moduls_has_professors_moduls">
+          <End Role="moduls" Type="Self.moduls" Multiplicity="1" />
+          <End Role="moduls_has_professors" Type="Self.moduls_has_professors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="moduls">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="moduls_has_professors">
+              <PropertyRef Name="moduls_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_moduls_has_professors_usuaris">
+          <End Role="usuaris" Type="Self.usuaris" Multiplicity="1" />
+          <End Role="moduls_has_professors" Type="Self.moduls_has_professors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuaris">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="moduls_has_professors">
+              <PropertyRef Name="usuaris_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rubriques_competencies_detall">
+          <End Role="competencies_detall" Type="Self.competencies_detall" Multiplicity="1" />
+          <End Role="rubriques" Type="Self.rubriques" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="competencies_detall">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rubriques">
+              <PropertyRef Name="competetencies_detall_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuaris_has_competencies_detall_competencies_detall">
+          <End Role="competencies_detall" Type="Self.competencies_detall" Multiplicity="1" />
+          <End Role="usuaris_has_competencies_detall" Type="Self.usuaris_has_competencies_detall" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="competencies_detall">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuaris_has_competencies_detall">
+              <PropertyRef Name="competencies_detall_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuaris_has_competencies_detall_usuaris">
+          <End Role="usuaris" Type="Self.usuaris" Multiplicity="1" />
+          <End Role="usuaris_has_competencies_detall" Type="Self.usuaris_has_competencies_detall" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuaris">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuaris_has_competencies_detall">
+              <PropertyRef Name="usauris_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuaris_rols1">
+          <End Role="rols" Type="Self.rols" Multiplicity="1" />
+          <End Role="usuaris" Type="Self.usuaris" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rols">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuaris">
+              <PropertyRef Name="rols_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="abpModelStoreContainer">
+          <EntitySet Name="cicles" EntityType="Self.cicles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="competencies_detall" EntityType="Self.competencies_detall" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="competetencies" EntityType="Self.competetencies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cursos" EntityType="Self.cursos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="moduls" EntityType="Self.moduls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="moduls_has_cursos" EntityType="Self.moduls_has_cursos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="moduls_has_professors" EntityType="Self.moduls_has_professors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rols" EntityType="Self.rols" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rubriques" EntityType="Self.rubriques" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuaris" EntityType="Self.usuaris" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuaris_has_competencies_detall" EntityType="Self.usuaris_has_competencies_detall" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_competencies_detall_competetencies" Association="Self.FK_competencies_detall_competetencies">
+            <End Role="competetencies" EntitySet="competetencies" />
+            <End Role="competencies_detall" EntitySet="competencies_detall" />
+          </AssociationSet>
+          <AssociationSet Name="fk_competetencies_moduls1" Association="Self.fk_competetencies_moduls1">
+            <End Role="moduls" EntitySet="moduls" />
+            <End Role="competetencies" EntitySet="competetencies" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cursos_cicles1" Association="Self.fk_cursos_cicles1">
+            <End Role="cicles" EntitySet="cicles" />
+            <End Role="cursos" EntitySet="cursos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_moduls_cicles" Association="Self.FK_moduls_cicles">
+            <End Role="cicles" EntitySet="cicles" />
+            <End Role="moduls" EntitySet="moduls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_moduls_has_cursos_cursos" Association="Self.FK_moduls_has_cursos_cursos">
+            <End Role="cursos" EntitySet="cursos" />
+            <End Role="moduls_has_cursos" EntitySet="moduls_has_cursos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_moduls_has_cursos_moduls" Association="Self.FK_moduls_has_cursos_moduls">
+            <End Role="moduls" EntitySet="moduls" />
+            <End Role="moduls_has_cursos" EntitySet="moduls_has_cursos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_moduls_has_professors_moduls" Association="Self.FK_moduls_has_professors_moduls">
+            <End Role="moduls" EntitySet="moduls" />
+            <End Role="moduls_has_professors" EntitySet="moduls_has_professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_moduls_has_professors_usuaris" Association="Self.FK_moduls_has_professors_usuaris">
+            <End Role="usuaris" EntitySet="usuaris" />
+            <End Role="moduls_has_professors" EntitySet="moduls_has_professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rubriques_competencies_detall" Association="Self.FK_rubriques_competencies_detall">
+            <End Role="competencies_detall" EntitySet="competencies_detall" />
+            <End Role="rubriques" EntitySet="rubriques" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuaris_has_competencies_detall_competencies_detall" Association="Self.FK_usuaris_has_competencies_detall_competencies_detall">
+            <End Role="competencies_detall" EntitySet="competencies_detall" />
+            <End Role="usuaris_has_competencies_detall" EntitySet="usuaris_has_competencies_detall" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuaris_has_competencies_detall_usuaris" Association="Self.FK_usuaris_has_competencies_detall_usuaris">
+            <End Role="usuaris" EntitySet="usuaris" />
+            <End Role="usuaris_has_competencies_detall" EntitySet="usuaris_has_competencies_detall" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuaris_rols1" Association="Self.fk_usuaris_rols1">
+            <End Role="rols" EntitySet="rols" />
+            <End Role="usuaris" EntitySet="usuaris" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="abpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cicle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sigles" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcio" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="actiu" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="cursos" Relationship="Self.fk_cursos_cicles1" FromRole="cicles" ToRole="cursos" />
+          <NavigationProperty Name="moduls" Relationship="Self.FK_moduls_cicles" FromRole="cicles" ToRole="moduls" />
+        </EntityType>
+        <EntityType Name="competencies_detall">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="competencies_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="competetency" Relationship="Self.FK_competencies_detall_competetencies" FromRole="competencies_detall" ToRole="competetencies" />
+          <NavigationProperty Name="rubriques" Relationship="Self.FK_rubriques_competencies_detall" FromRole="competencies_detall" ToRole="rubriques" />
+          <NavigationProperty Name="usuaris_has_competencies_detall" Relationship="Self.FK_usuaris_has_competencies_detall_competencies_detall" FromRole="competencies_detall" ToRole="usuaris_has_competencies_detall" />
+        </EntityType>
+        <EntityType Name="competetency">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codi" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcio" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="moduls_id" Type="Int32" Nullable="false" />
+          <Property Name="actiu" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="competencies_detall" Relationship="Self.FK_competencies_detall_competetencies" FromRole="competetencies" ToRole="competencies_detall" />
+          <NavigationProperty Name="modul" Relationship="Self.fk_competetencies_moduls1" FromRole="competetencies" ToRole="moduls" />
+        </EntityType>
+        <EntityType Name="curso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sigles" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="cicles_id" Type="Int32" Nullable="false" />
+          <Property Name="actiu" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="cicle" Relationship="Self.fk_cursos_cicles1" FromRole="cursos" ToRole="cicles" />
+          <NavigationProperty Name="moduls_has_cursos" Relationship="Self.FK_moduls_has_cursos_cursos" FromRole="cursos" ToRole="moduls_has_cursos" />
+        </EntityType>
+        <EntityType Name="modul">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codi" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="hores" Type="Int32" Nullable="false" />
+          <Property Name="cicles_id" Type="Int32" Nullable="false" />
+          <Property Name="actiu" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="cicle" Relationship="Self.FK_moduls_cicles" FromRole="moduls" ToRole="cicles" />
+          <NavigationProperty Name="competetencies" Relationship="Self.fk_competetencies_moduls1" FromRole="moduls" ToRole="competetencies" />
+          <NavigationProperty Name="moduls_has_cursos" Relationship="Self.FK_moduls_has_cursos_moduls" FromRole="moduls" ToRole="moduls_has_cursos" />
+          <NavigationProperty Name="moduls_has_professors" Relationship="Self.FK_moduls_has_professors_moduls" FromRole="moduls" ToRole="moduls_has_professors" />
+        </EntityType>
+        <EntityType Name="moduls_has_cursos">
+          <Key>
+            <PropertyRef Name="cursos_id" />
+            <PropertyRef Name="moduls_id" />
+            <PropertyRef Name="curs_academic_id" />
+          </Key>
+          <Property Name="cursos_id" Type="Int32" Nullable="false" />
+          <Property Name="moduls_id" Type="Int32" Nullable="false" />
+          <Property Name="curs_academic_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="curso" Relationship="Self.FK_moduls_has_cursos_cursos" FromRole="moduls_has_cursos" ToRole="cursos" />
+          <NavigationProperty Name="modul" Relationship="Self.FK_moduls_has_cursos_moduls" FromRole="moduls_has_cursos" ToRole="moduls" />
+        </EntityType>
+        <EntityType Name="moduls_has_professors">
+          <Key>
+            <PropertyRef Name="moduls_id" />
+            <PropertyRef Name="usuaris_id" />
+            <PropertyRef Name="curs_academic_id" />
+          </Key>
+          <Property Name="moduls_id" Type="Int32" Nullable="false" />
+          <Property Name="usuaris_id" Type="Int32" Nullable="false" />
+          <Property Name="curs_academic_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="modul" Relationship="Self.FK_moduls_has_professors_moduls" FromRole="moduls_has_professors" ToRole="moduls" />
+          <NavigationProperty Name="usuari" Relationship="Self.FK_moduls_has_professors_usuaris" FromRole="moduls_has_professors" ToRole="usuaris" />
+        </EntityType>
+        <EntityType Name="rol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="actiu" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="usuaris" Relationship="Self.fk_usuaris_rols1" FromRole="rols" ToRole="usuaris" />
+        </EntityType>
+        <EntityType Name="rubrique">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcio" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="actiu" Type="Boolean" Nullable="false" />
+          <Property Name="nivell" Type="Int32" Nullable="false" />
+          <Property Name="competetencies_detall_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="competencies_detall" Relationship="Self.FK_rubriques_competencies_detall" FromRole="rubriques" ToRole="competencies_detall" />
+        </EntityType>
+        <EntityType Name="usuari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="correu" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cognoms" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contrasenya" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rols_id" Type="Int32" Nullable="false" />
+          <Property Name="actiu" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="moduls_has_professors" Relationship="Self.FK_moduls_has_professors_usuaris" FromRole="usuaris" ToRole="moduls_has_professors" />
+          <NavigationProperty Name="rol" Relationship="Self.fk_usuaris_rols1" FromRole="usuaris" ToRole="rols" />
+          <NavigationProperty Name="usuaris_has_competencies_detall" Relationship="Self.FK_usuaris_has_competencies_detall_usuaris" FromRole="usuaris" ToRole="usuaris_has_competencies_detall" />
+        </EntityType>
+        <EntityType Name="usuaris_has_competencies_detall">
+          <Key>
+            <PropertyRef Name="usauris_id" />
+            <PropertyRef Name="competencies_detall_id" />
+            <PropertyRef Name="curs_academic_id" />
+          </Key>
+          <Property Name="usauris_id" Type="Int32" Nullable="false" />
+          <Property Name="competencies_detall_id" Type="Int32" Nullable="false" />
+          <Property Name="curs_academic_id" Type="Int32" Nullable="false" />
+          <Property Name="nivell" Type="Int32" />
+          <NavigationProperty Name="competencies_detall" Relationship="Self.FK_usuaris_has_competencies_detall_competencies_detall" FromRole="usuaris_has_competencies_detall" ToRole="competencies_detall" />
+          <NavigationProperty Name="usuari" Relationship="Self.FK_usuaris_has_competencies_detall_usuaris" FromRole="usuaris_has_competencies_detall" ToRole="usuaris" />
+        </EntityType>
+        <Association Name="fk_cursos_cicles1">
+          <End Role="cicles" Type="Self.cicle" Multiplicity="1" />
+          <End Role="cursos" Type="Self.curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cicles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cursos">
+              <PropertyRef Name="cicles_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_moduls_cicles">
+          <End Role="cicles" Type="Self.cicle" Multiplicity="1" />
+          <End Role="moduls" Type="Self.modul" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cicles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="moduls">
+              <PropertyRef Name="cicles_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_competencies_detall_competetencies">
+          <End Role="competetencies" Type="Self.competetency" Multiplicity="1" />
+          <End Role="competencies_detall" Type="Self.competencies_detall" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="competetencies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="competencies_detall">
+              <PropertyRef Name="competencies_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rubriques_competencies_detall">
+          <End Role="competencies_detall" Type="Self.competencies_detall" Multiplicity="1" />
+          <End Role="rubriques" Type="Self.rubrique" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="competencies_detall">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rubriques">
+              <PropertyRef Name="competetencies_detall_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuaris_has_competencies_detall_competencies_detall">
+          <End Role="competencies_detall" Type="Self.competencies_detall" Multiplicity="1" />
+          <End Role="usuaris_has_competencies_detall" Type="Self.usuaris_has_competencies_detall" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="competencies_detall">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuaris_has_competencies_detall">
+              <PropertyRef Name="competencies_detall_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_competetencies_moduls1">
+          <End Role="moduls" Type="Self.modul" Multiplicity="1" />
+          <End Role="competetencies" Type="Self.competetency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="moduls">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="competetencies">
+              <PropertyRef Name="moduls_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_moduls_has_cursos_cursos">
+          <End Role="cursos" Type="Self.curso" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="moduls_has_cursos" Type="Self.moduls_has_cursos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cursos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="moduls_has_cursos">
+              <PropertyRef Name="cursos_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_moduls_has_cursos_moduls">
+          <End Role="moduls" Type="Self.modul" Multiplicity="1" />
+          <End Role="moduls_has_cursos" Type="Self.moduls_has_cursos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="moduls">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="moduls_has_cursos">
+              <PropertyRef Name="moduls_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_moduls_has_professors_moduls">
+          <End Role="moduls" Type="Self.modul" Multiplicity="1" />
+          <End Role="moduls_has_professors" Type="Self.moduls_has_professors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="moduls">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="moduls_has_professors">
+              <PropertyRef Name="moduls_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_moduls_has_professors_usuaris">
+          <End Role="usuaris" Type="Self.usuari" Multiplicity="1" />
+          <End Role="moduls_has_professors" Type="Self.moduls_has_professors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuaris">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="moduls_has_professors">
+              <PropertyRef Name="usuaris_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuaris_rols1">
+          <End Role="rols" Type="Self.rol" Multiplicity="1" />
+          <End Role="usuaris" Type="Self.usuari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rols">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuaris">
+              <PropertyRef Name="rols_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuaris_has_competencies_detall_usuaris">
+          <End Role="usuaris" Type="Self.usuari" Multiplicity="1" />
+          <End Role="usuaris_has_competencies_detall" Type="Self.usuaris_has_competencies_detall" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuaris">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuaris_has_competencies_detall">
+              <PropertyRef Name="usauris_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="abpEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cicles" EntityType="Self.cicle" />
+          <EntitySet Name="competencies_detall" EntityType="Self.competencies_detall" />
+          <EntitySet Name="competetencies" EntityType="Self.competetency" />
+          <EntitySet Name="cursos" EntityType="Self.curso" />
+          <EntitySet Name="moduls" EntityType="Self.modul" />
+          <EntitySet Name="moduls_has_cursos" EntityType="Self.moduls_has_cursos" />
+          <EntitySet Name="moduls_has_professors" EntityType="Self.moduls_has_professors" />
+          <EntitySet Name="rols" EntityType="Self.rol" />
+          <EntitySet Name="rubriques" EntityType="Self.rubrique" />
+          <EntitySet Name="usuaris" EntityType="Self.usuari" />
+          <EntitySet Name="usuaris_has_competencies_detall" EntityType="Self.usuaris_has_competencies_detall" />
+          <AssociationSet Name="fk_cursos_cicles1" Association="Self.fk_cursos_cicles1">
+            <End Role="cicles" EntitySet="cicles" />
+            <End Role="cursos" EntitySet="cursos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_moduls_cicles" Association="Self.FK_moduls_cicles">
+            <End Role="cicles" EntitySet="cicles" />
+            <End Role="moduls" EntitySet="moduls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_competencies_detall_competetencies" Association="Self.FK_competencies_detall_competetencies">
+            <End Role="competetencies" EntitySet="competetencies" />
+            <End Role="competencies_detall" EntitySet="competencies_detall" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rubriques_competencies_detall" Association="Self.FK_rubriques_competencies_detall">
+            <End Role="competencies_detall" EntitySet="competencies_detall" />
+            <End Role="rubriques" EntitySet="rubriques" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuaris_has_competencies_detall_competencies_detall" Association="Self.FK_usuaris_has_competencies_detall_competencies_detall">
+            <End Role="competencies_detall" EntitySet="competencies_detall" />
+            <End Role="usuaris_has_competencies_detall" EntitySet="usuaris_has_competencies_detall" />
+          </AssociationSet>
+          <AssociationSet Name="fk_competetencies_moduls1" Association="Self.fk_competetencies_moduls1">
+            <End Role="moduls" EntitySet="moduls" />
+            <End Role="competetencies" EntitySet="competetencies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_moduls_has_cursos_cursos" Association="Self.FK_moduls_has_cursos_cursos">
+            <End Role="cursos" EntitySet="cursos" />
+            <End Role="moduls_has_cursos" EntitySet="moduls_has_cursos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_moduls_has_cursos_moduls" Association="Self.FK_moduls_has_cursos_moduls">
+            <End Role="moduls" EntitySet="moduls" />
+            <End Role="moduls_has_cursos" EntitySet="moduls_has_cursos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_moduls_has_professors_moduls" Association="Self.FK_moduls_has_professors_moduls">
+            <End Role="moduls" EntitySet="moduls" />
+            <End Role="moduls_has_professors" EntitySet="moduls_has_professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_moduls_has_professors_usuaris" Association="Self.FK_moduls_has_professors_usuaris">
+            <End Role="usuaris" EntitySet="usuaris" />
+            <End Role="moduls_has_professors" EntitySet="moduls_has_professors" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuaris_rols1" Association="Self.fk_usuaris_rols1">
+            <End Role="rols" EntitySet="rols" />
+            <End Role="usuaris" EntitySet="usuaris" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuaris_has_competencies_detall_usuaris" Association="Self.FK_usuaris_has_competencies_detall_usuaris">
+            <End Role="usuaris" EntitySet="usuaris" />
+            <End Role="usuaris_has_competencies_detall" EntitySet="usuaris_has_competencies_detall" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="abpModelStoreContainer" CdmEntityContainer="abpEntities2">
+          <EntitySetMapping Name="cicles">
+            <EntityTypeMapping TypeName="abpModel.cicle">
+              <MappingFragment StoreEntitySet="cicles">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="sigles" ColumnName="sigles" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="descripcio" ColumnName="descripcio" />
+                <ScalarProperty Name="actiu" ColumnName="actiu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="competencies_detall">
+            <EntityTypeMapping TypeName="abpModel.competencies_detall">
+              <MappingFragment StoreEntitySet="competencies_detall">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codi" ColumnName="codi" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="competencies_id" ColumnName="competencies_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="competetencies">
+            <EntityTypeMapping TypeName="abpModel.competetency">
+              <MappingFragment StoreEntitySet="competetencies">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codi" ColumnName="codi" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="descripcio" ColumnName="descripcio" />
+                <ScalarProperty Name="moduls_id" ColumnName="moduls_id" />
+                <ScalarProperty Name="actiu" ColumnName="actiu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cursos">
+            <EntityTypeMapping TypeName="abpModel.curso">
+              <MappingFragment StoreEntitySet="cursos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="sigles" ColumnName="sigles" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="cicles_id" ColumnName="cicles_id" />
+                <ScalarProperty Name="actiu" ColumnName="actiu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="moduls">
+            <EntityTypeMapping TypeName="abpModel.modul">
+              <MappingFragment StoreEntitySet="moduls">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codi" ColumnName="codi" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="hores" ColumnName="hores" />
+                <ScalarProperty Name="cicles_id" ColumnName="cicles_id" />
+                <ScalarProperty Name="actiu" ColumnName="actiu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="moduls_has_cursos">
+            <EntityTypeMapping TypeName="abpModel.moduls_has_cursos">
+              <MappingFragment StoreEntitySet="moduls_has_cursos">
+                <ScalarProperty Name="cursos_id" ColumnName="cursos_id" />
+                <ScalarProperty Name="moduls_id" ColumnName="moduls_id" />
+                <ScalarProperty Name="curs_academic_id" ColumnName="curs_academic_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="moduls_has_professors">
+            <EntityTypeMapping TypeName="abpModel.moduls_has_professors">
+              <MappingFragment StoreEntitySet="moduls_has_professors">
+                <ScalarProperty Name="moduls_id" ColumnName="moduls_id" />
+                <ScalarProperty Name="usuaris_id" ColumnName="usuaris_id" />
+                <ScalarProperty Name="curs_academic_id" ColumnName="curs_academic_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rols">
+            <EntityTypeMapping TypeName="abpModel.rol">
+              <MappingFragment StoreEntitySet="rols">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="actiu" ColumnName="actiu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rubriques">
+            <EntityTypeMapping TypeName="abpModel.rubrique">
+              <MappingFragment StoreEntitySet="rubriques">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcio" ColumnName="descripcio" />
+                <ScalarProperty Name="actiu" ColumnName="actiu" />
+                <ScalarProperty Name="nivell" ColumnName="nivell" />
+                <ScalarProperty Name="competetencies_detall_id" ColumnName="competetencies_detall_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuaris">
+            <EntityTypeMapping TypeName="abpModel.usuari">
+              <MappingFragment StoreEntitySet="usuaris">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="correu" ColumnName="correu" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="cognoms" ColumnName="cognoms" />
+                <ScalarProperty Name="contrasenya" ColumnName="contrasenya" />
+                <ScalarProperty Name="rols_id" ColumnName="rols_id" />
+                <ScalarProperty Name="actiu" ColumnName="actiu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuaris_has_competencies_detall">
+            <EntityTypeMapping TypeName="abpModel.usuaris_has_competencies_detall">
+              <MappingFragment StoreEntitySet="usuaris_has_competencies_detall">
+                <ScalarProperty Name="usauris_id" ColumnName="usauris_id" />
+                <ScalarProperty Name="competencies_detall_id" ColumnName="competencies_detall_id" />
+                <ScalarProperty Name="curs_academic_id" ColumnName="curs_academic_id" />
+                <ScalarProperty Name="nivell" ColumnName="nivell" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

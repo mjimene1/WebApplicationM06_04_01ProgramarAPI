@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="71731a466045481fb650d2beebc550ca" Name="Diagram1">
+        <EntityTypeShape EntityType="abpModel.cicle" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="abpModel.competencies_detall" Width="1.5" PointX="7.5" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="abpModel.competetency" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="abpModel.curso" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="abpModel.modul" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abpModel.moduls_has_cursos" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="abpModel.moduls_has_professors" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abpModel.rol" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abpModel.rubrique" Width="1.5" PointX="9.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="abpModel.usuari" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abpModel.usuaris_has_competencies_detall" Width="1.5" PointX="9.75" PointY="5.125" IsExpanded="true" />
+        <AssociationConnector Association="abpModel.fk_cursos_cicles1" ManuallyRouted="false" />
+        <AssociationConnector Association="abpModel.FK_moduls_cicles" ManuallyRouted="false" />
+        <AssociationConnector Association="abpModel.FK_competencies_detall_competetencies" ManuallyRouted="false" />
+        <AssociationConnector Association="abpModel.FK_rubriques_competencies_detall" ManuallyRouted="false" />
+        <AssociationConnector Association="abpModel.FK_usuaris_has_competencies_detall_competencies_detall" ManuallyRouted="false" />
+        <AssociationConnector Association="abpModel.fk_competetencies_moduls1" ManuallyRouted="false" />
+        <AssociationConnector Association="abpModel.FK_moduls_has_cursos_cursos" ManuallyRouted="false" />
+        <AssociationConnector Association="abpModel.FK_moduls_has_cursos_moduls" ManuallyRouted="false" />
+        <AssociationConnector Association="abpModel.FK_moduls_has_professors_moduls" ManuallyRouted="false" />
+        <AssociationConnector Association="abpModel.FK_moduls_has_professors_usuaris" ManuallyRouted="false" />
+        <AssociationConnector Association="abpModel.fk_usuaris_rols1" ManuallyRouted="false" />
+        <AssociationConnector Association="abpModel.FK_usuaris_has_competencies_detall_usuaris" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
